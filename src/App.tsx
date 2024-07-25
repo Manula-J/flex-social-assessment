@@ -1,6 +1,8 @@
-import React from "react";
-import ProductList from "./components/ProductList";
+import React, { useEffect, useState } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "./firebase/firebase";
 import { Product } from "./Product";
+import ProductList from "./components/ProductList";
 import "./App.css";
 
 const products: Product[] = [
@@ -36,6 +38,30 @@ const products: Product[] = [
 ];
 
 const App: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    //Subscribe to Firestore collection
+    const unsubscribe = onSnapshot(collection(db, "products"), (snapshot) => {
+      const productsData: Product[] = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const product: Product = {
+          id: data.id,
+          name: data.name,
+          price: data.price,
+          description: data.description,
+          imageUrl: data.imageUrl,
+        };
+        productsData.push(product);
+      });
+      setProducts(productsData);
+    });
+
+    //Cleanup subscription on unmount
+    return () => unsubscribe();
+  });
+
   return (
     <div className="App">
       <h1>Product List</h1>
