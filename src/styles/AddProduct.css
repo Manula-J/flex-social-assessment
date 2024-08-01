@@ -1,0 +1,35 @@
+.form-container {
+  display: flexbox;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  background-color: #ff9a9ac6;
+  border-radius: 20px;
+  align-items: center;
+}
+
+.btn-submit {
+  display: flex;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+@media (max-width: 576px) {
+  .form-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 891px) {
+  .form-container {
+    width: 70%;
+  }
+}
+
+@media (min-width: 892px) {
+  .form-container {
+    width: 35%;
+  }
+}
