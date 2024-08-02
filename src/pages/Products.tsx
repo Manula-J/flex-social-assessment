@@ -3,6 +3,7 @@ import ProductList from "../components/ProductList";
 import { Product } from "../Product";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import "../styles/Products.css";
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,8 +27,13 @@ const Products: React.FC = () => {
   return (
     <>
       <div className="Products">
-        <h1>Product List</h1>
+        <h1 className="d-flex justify-content-center">Product List</h1>
         <ProductList products={products} />
+        <button type="button" className="btn btn-primary btn-add-product">
+          <a className="nav-link" href="/add-product">
+            +
+          </a>
+        </button>
       </div>
     </>
   );

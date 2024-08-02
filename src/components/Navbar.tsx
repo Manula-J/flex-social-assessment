@@ -3,7 +3,7 @@ import "../styles/Navbar.css";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary mb-3">
       <div className="container-fluid">
         <a className="navbar-brand" href="/home">
           <img src="logo.png" alt="Logo" className="navbar-logo" />
