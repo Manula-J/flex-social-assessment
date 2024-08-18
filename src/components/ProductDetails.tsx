@@ -1,7 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+type Params = {
+  productId: string;
+};
 
 export default function ProductDetails() {
+  const { productId } = useParams<Params>();
+
   const [itemCount, setItemCount] = useState<number>(0);
+
+  useEffect(() => {
+    console.log("Product ID from URL:", productId);
+  }, [productId]);
 
   const minusItem = () => {
     if (itemCount !== 0) {

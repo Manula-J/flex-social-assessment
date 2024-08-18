@@ -1,14 +1,25 @@
 import React from "react";
 import { Product } from "../Product";
 import "../styles/ProductCard.css";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleProductClick = (productId: String) => {
+    console.log("Navigating to product ID:", productId);
+    navigate(`/products/product-details/${productId}`);
+  };
+
   return (
-    <div className="card product-card">
+    <div
+      className="card product-card"
+      onClick={() => handleProductClick(String(product.id))}
+    >
       <div className="image-container">
         <img
           src={product.imageUrl}
