@@ -14,7 +14,7 @@ const App: React.FC = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/add-product" element={<AddProduct />} />
         <Route
-          path="/products/product-details/:productId"
+          path="/products/product-details/:productDoc"
           element={<ProductInfo />}
         />
       </Routes>

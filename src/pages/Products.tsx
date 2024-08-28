@@ -13,9 +13,11 @@ const Products: React.FC = () => {
       try {
         const querySnapshot = await getDocs(collection(db, "products"));
         const productsList: Product[] = querySnapshot.docs.map((doc) => ({
-          ...(doc.data() as Product),
+          docId: doc.id,
+          ...(doc.data() as Omit<Product, "docId">),
         }));
         setProducts(productsList);
+        console.log(productsList);
       } catch (error) {
         console.error("Error fetching items: ", error);
       }

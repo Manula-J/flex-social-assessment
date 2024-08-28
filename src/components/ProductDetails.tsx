@@ -1,18 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { db } from "../firebase/firebase";
+import { DocumentSnapshot, getDocs, doc, getDoc } from "firebase/firestore";
+import { Product } from "../Product";
+import { error } from "console";
 
 type Params = {
-  productId: string;
+  productDoc: string;
 };
 
 export default function ProductDetails() {
-  const { productId } = useParams<Params>();
+  const { productDoc } = useParams<Params>();
 
+  const [product, setProduct] = useState<Product | null>(null);
   const [itemCount, setItemCount] = useState<number>(0);
 
   useEffect(() => {
-    console.log("Product ID from URL:", productId);
-  }, [productId]);
+    const fetchProduct = async () => {
+      if (productDoc) {
+        try {
+          const docRef = doc(db, "products", productDoc);
+          const docSnap = (await getDoc(docRef)) as DocumentSnapshot<Product>;
+          if (docSnap.exists()) {
+            const productData = docSnap.data();
+            setProduct(productData);
+          } else {
+            console.log("Error while retrieving product details");
+          }
+        } catch (error) {
+          console.error("Error fetching document:");
+        }
+      }
+    };
+
+    fetchProduct();
+  }, [productDoc]);
 
   const minusItem = () => {
     if (itemCount !== 0) {
@@ -30,16 +52,20 @@ export default function ProductDetails() {
         <div className="col-4">
           <div className="container-sm">
             <img
-              src="https://firebasestorage.googleapis.com/v0/b/flex-social-assessment.appspot.com/o/61Ulnab4eEL._AC_UY218_.jpg?alt=media&token=670e9c7f-fb0f-4fc7-bf45-8b0d45dbdbcf"
+              src={product?.imageUrl}
               alt="Product"
               className="w-100 h-100 object-fit-scale rounded"
             />
           </div>
         </div>
         <div className="col-8 p-4">
-          <div className="title fs-2 mb-2">Test</div>
-          <div className="price fs-4 font-monospace mb-2">LKR250.99</div>
-          <div className="Description text-break mb-2">Description</div>
+          <div className="title fs-2 mb-2">{product?.name}</div>
+          <div className="price fs-4 font-monospace mb-2">
+            LKR{product?.price}
+          </div>
+          <div className="Description text-break mb-2">
+            {product?.description}
+          </div>
           <div className="quantity-selector d-inline-flex w-25 justify-content-between mt-2 mb-2">
             <button
               className="btn btn-primary rounded-circle p-0"

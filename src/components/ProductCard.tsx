@@ -10,15 +10,15 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const navigate = useNavigate();
 
-  const handleProductClick = (productId: String) => {
-    console.log("Navigating to product ID:", productId);
-    navigate(`/products/product-details/${productId}`);
+  const handleProductClick = (docId: String) => {
+    console.log("Navigating to product ID:", docId);
+    navigate(`/products/product-details/${docId}`);
   };
 
   return (
     <div
       className="card product-card"
-      onClick={() => handleProductClick(String(product.id))}
+      onClick={() => handleProductClick(String(product.docId))}
     >
       <div className="image-container">
         <img
