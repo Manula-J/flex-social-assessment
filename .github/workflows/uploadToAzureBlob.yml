@@ -26,7 +26,7 @@ jobs:
         run: npm run build
 
       - name: Upload to Blob Storage
-      - uses: bacongobbler/azure-blob-storage-upload@main
+        uses: bacongobbler/azure-blob-storage-upload@main
         with:
           #source_dir: 
           container_name: $web
