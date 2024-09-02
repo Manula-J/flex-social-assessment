@@ -1,0 +1,36 @@
+name: Upload To Azure Blob Storage
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 22.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build
+
+      - name: Upload to Blob Storage
+        uses: bacongobbler/azure-blob-storage-upload@main
+        with:
+          #source_dir: 
+          container_name: $web
+          connection_string: ${{ secrets.ConnectionString }}
+          extra_args: '--pattern *.tar.gz'
+          # WARNING: this will overwrite existing blobs in your blob storage
+          # overwrite: 'true'
