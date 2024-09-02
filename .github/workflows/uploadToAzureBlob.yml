@@ -28,7 +28,7 @@ jobs:
       - name: Upload to Blob Storage
         uses: bacongobbler/azure-blob-storage-upload@main
         with:
-          source_dir: "/build"
+          source_dir: "build"
           container_name: "$web"
           connection_string: ${{ secrets.ConnectionString }}
           extra_args: '--pattern *.tar.gz'
