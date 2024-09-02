@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase/firebase";
-import { DocumentSnapshot, getDocs, doc, getDoc } from "firebase/firestore";
+import { DocumentSnapshot, doc, getDoc } from "firebase/firestore";
 import { Product } from "../Product";
-import { error } from "console";
 
 type Params = {
   productDoc: string;
