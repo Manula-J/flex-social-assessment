@@ -33,4 +33,4 @@ jobs:
           connection_string: ${{ secrets.ConnectionString }}
           extra_args: '--pattern *.tar.gz'
           # WARNING: this will overwrite existing blobs in your blob storage
-          # overwrite: 'true'
+          overwrite: 'true'
