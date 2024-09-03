@@ -23,9 +23,7 @@ jobs:
         run: npm install
 
       - name: Build the app
-        run: |
-          npm run build
-          ls
+        run: npm run build
 
       - name: Upload to Blob Storage
         uses: bacongobbler/azure-blob-storage-upload@main
@@ -33,6 +31,6 @@ jobs:
           source_dir: "build"
           container_name: "test"
           connection_string: ${{ secrets.ConnectionString }}
-          extra_args: '--pattern *.tar.gz'
+          #extra_args: '--pattern *.tar.gz'
           # WARNING: this will overwrite existing blobs in your blob storage
           overwrite: 'true'
