@@ -23,7 +23,9 @@ jobs:
         run: npm install
 
       - name: Build the app
-        run: npm run build
+        run: |
+          npm run build
+          ls
 
       - name: Upload to Blob Storage
         uses: bacongobbler/azure-blob-storage-upload@main
